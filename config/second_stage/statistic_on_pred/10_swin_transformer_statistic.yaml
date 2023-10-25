@@ -1,0 +1,24 @@
+DATA:
+  TRAIN_IMG_DATA: "datasets/second_stage/swin_transformer_extract/train"
+  VALID_IMG_DATA: "datasets/second_stage/swin_transformer_extract/valid"
+  TEST_IMG_DATA: "datasets/second_stage/swin_transformer_extract/test"
+DATA_LOADER:
+  NAME: "second_stage_data"
+  SECOND_STAGE:
+    METHOD: "statistic"
+    TYPE: "pred"
+  TRAIN_BATCH_SIZE: 64
+  NUM_WORKERS: 0
+MODEL:
+  NAME: "statistic_mlp"
+LOSS:
+  NAME: "mean_square_error"
+SOLVER:
+  NAME: "sgd"
+  SCHEDULER: "multi_step_scale"
+  LR_INIT: 0.1
+  MILESTONE: [1000, 2000]
+TRAIN:
+  TRAINER: "StatisticTrainer"
+  MAX_EPOCH: 100
+  OUTPUT_DIR: "results_second_stage/statistic/10_swin_transformer_statistic"
